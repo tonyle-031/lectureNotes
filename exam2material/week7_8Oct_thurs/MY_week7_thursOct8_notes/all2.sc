@@ -19,11 +19,27 @@ import org.sireum.justification.natded.prop._
     Proof(
       1 (∀((x: T) => (P(x) & Q(x)))) by Premise,
 
+      // first prove: ∀((x: T) => P(x))
+      // use ForAllI
+      2 Let ((a: T) => SubProof (
+        3 (P(a) & Q(a)) by AllE[T](1),
+        4 ( P(a) ) by AndE1(3)
+        // goal: P(a)
+      )),
+      5 ( ∀((x: T) => P(x)) ) by AllI[T](2),
+      // then prove: ∀((x: T) => Q(x))
+      6 Let ((a: T) => SubProof (
+        7 (P(a) & Q(a)) by AllE[T](1),
+        8 ( Q(a) ) by AndE2(7)
+        // goal: P(a)
+      )),
+      9 ( ∀((x: T) => Q(x)) ) by AllI[T](6),
+      10 ( ∀((x: T) => P(x)) & ∀((x: T) => Q(x)) ) by AndI(5, 9)
     )
   )
 }
 
-
+/*
 @pure def all2part2[T](P: T=>B @pure, Q: T=>B @pure): Unit = {
   Deduce(
     (
@@ -39,3 +55,4 @@ import org.sireum.justification.natded.prop._
     )
   )
 }
+*/

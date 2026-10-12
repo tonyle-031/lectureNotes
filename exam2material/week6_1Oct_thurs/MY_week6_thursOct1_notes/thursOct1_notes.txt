@@ -21,15 +21,21 @@ Reminder: set builder notation
 
 {x : x ∈ ℤ, x^2 <= 25}
 
-
+    - all ints between 0 and 5 are in the set
+    - all ints between -5 and -1 are also included
 
 {n : n = 3a + 1, a ∈ ℕ, 1 ≤ a ≤ 4}
 
 
+                
 
 {x : n = 2k+5m; k,m ∈ ℕ; 1 ≤ k ≤ 3; 3 ≤ m ≤ 4;}
+                *think of this like args
 
+k: 1, 2, 3
+m: 3 or 4
 
+{17, 22, 19, 24, 21, 26}
 
 //////////////////////////////
 
@@ -38,19 +44,25 @@ Describe these sets in set builder notation
 
 {5,10,15}
 
+{x : x = 5k, k ∈ ℕ; k <= 3}
+
 
 
 {CIS 115, CIS 116, CIS 200, CIS 300, CIS 301}
 
+{x : x is a CIS course and x is in the CIS minor}
 
 
 {2,4,8,16,32}
 
+{ x : x = 2^k, k ∈ ℕ; k <= 5 }
 
 
 {13, 19, 25, 31, 37, 43}
 
-
+{ x : x = 13 + 6k, k ∈ ℤ, 0 <= k <= 5}
+OR 
+{ x : x = 7 + 6k, k ∈ ℕ, k <= 5 }
 
 ///////////////////////////////////////
 ∀ ∃     ∈ ∉     ∅ ⋂ ⋃ ⊂ ⊆   ⋀ ⋁ ¬ →     ℕ ℤ     ≠ ≤ ≥
@@ -62,11 +74,14 @@ Set union, ⋃
 The union of the sets A and B, written A ⋃ B, is the set
 of all elements....
 
+    One of the elements is in one, the other, or both sets.
+
 
 How could we express in set builder notation?
 
 A ⋃ B = ?
 
+    = { x : x ∈ A ⋁ x ∈ B }
 
 Show as a Venn diagram.
 
@@ -79,11 +94,13 @@ Set intersection, ⋂
 The intersection of the sets A and B, written A ⋂ B, is the set
 of all elements that are...
 
+    in BOTH set A and set B
 
 How could we express in set builder notation?
 
 A ⋂ B = ?
 
+    = { x : x ∈ A ⋀ x ∈ B }
 
 Show as a Venn diagram.
 
@@ -96,11 +113,13 @@ Set difference, -
 The difference between the sets A and B, written A - B, 
     is the set of all elements...
 
+    in A, but not in B
 
 How could we express in set builder notation?
 
 A - B = ?
 
+    = { x : x ∈ A ⋀ x ∉ B }
 
 Show as a Venn diagram.
 
@@ -113,10 +132,10 @@ B = {2,3,4,5,6,7}
 
 Find:
 
-A ⋃ B = ?
-A ⋂ B = ?
-A - B = ?
-B - A = ?
+A ⋃ B = {1, 2, 3, 4, 5, 6, 7, 10, 11, 12}
+A ⋂ B = {3, 7}
+A - B = {1, 10, 11, 12}
+B - A = {2, 4, 5, 6}
 
 
 /////////////////
@@ -135,22 +154,19 @@ Draw a Venn diagram for (A ⋂ B) − C
 
 How does A - B relate to A ⋂ B?
 
-
+    A - B = A - A ⋂ B
 
 What do we know if A ⋂ B = A ⋃ B?
 
-
-
+    A & B are the same.
 
 What do we know if A - B = A?
 
-
-
-
+    A and B are separate (no intersection)
 
 What do we know if A - B = B - A?
 
-
+    Both could be empty, or the same set.
 
 //////////////////
 
@@ -192,9 +208,13 @@ B = {1,3,5,8}
 
 Quantifiers - helps describe all or some elements in a set
 
-    ∀ - ?
+    ∀ - Universal Quantifier
+        "for all", "all"
+        describes something about ALL elements in a set
 
-    ∃ - ?
+    ∃ - Existential Quantifier
+        "there exists", "some", "at least one"
+        describes something where a particular case happens
 
 
 
@@ -202,8 +222,8 @@ Can we define that set A is a subset of set B using quantifiers?
 
 A ⊆ B means ...
 
-
-
+    ∀ x ∈ A → x ∈ B
+        implies (promises that A is also in B)
 
 How could we define that set A equals set B using quantifiers?
 
@@ -242,15 +262,15 @@ A = {x : x ∈ ℕ ⋀ x^2 ≥ 25 }
 
 
 
-P(x) = ?
+P(x) = x ∈ ℕ ⋀ x^2 ≥ 25 (boolean condition)
 
 What are these saying? Are they true?
 
-P(2) = 
-P(-6) =  
-P(10) = 
+P(2) = false;
+P(-6) = false;
+P(10) = true;
 
-
+    Means that 10 is in the set, while 2, and -6 are not.
 
 
 
@@ -271,7 +291,11 @@ How would we prove this in propositional logic?
 
 What propositional atoms? What sequent?
 
+p: All humans are mortal.
+q: Socrates is human.
+r: Therefore, Socrates is mortal.
 
+Translation: p, q |- r
 
 
 ///////////////
@@ -284,11 +308,15 @@ individuals in a domain (a set)
 
 These claims will involve predicates and quantifiers
 
-Human(x)
-Mortal(x)
+Domain: all living things
+
+Human(x) - whether 'x' is human
+Mortal(x) - whether 'x' is mortal
 
 
 ∀ x (Human(x) → Mortal(x))
+    For all living things, if that living thing is human, then it is mortal.
+    All humans are mortal.
 
 //////////////////
 
@@ -299,11 +327,14 @@ Example:
     Domain: {x : x is a student at K-State}
     C(x): whether x is in CIS 301
 
+    Bob and Jill are students at K-state.
+
     Bob is taking: CIS 300, CIS 301, ECE 241, MATH 221, ENGL 200
     Jill is taking: CIS 300, MATH 510, HIST 251, PHYS 213
 
 
     What is the value of C(Bob) ⋀ ¬C(Jill)? 
+        Evaluates true
 
 
 ////////////////
@@ -321,22 +352,25 @@ Wings(x): x has wings
 Carnivore(x): x is a carnivore
 
 
-Mammal(bat) -  ?
-Bird(bat) - ?
-Fish(bat) - ?
-Wings(bat) - ?
-Carnivore(bat)
+Mammal(bat) -  false
+Bird(bat) - false
+Fish(bat) - false
+Wings(bat) - true
+Carnivore(bat) - true
 
 Write each statement in English. Is each one true or false?
 
 ∀ x (Mammal(x))
 
+All animals in my domain are mammals.
 
+false: a salmon is not a mammal
 
     --> how could we express the same statement in our domain
     WITHOUT a quantifier?
 
-
+    Equivalence is combining all elements in the set with AND statements
+    Mammal(bat) & Mammal(lion) ... & Mammal(salmon)
 
 ///
 
@@ -345,26 +379,39 @@ Write each statement in English. Is each one true or false?
     --> how could we express the same statement in our domain
     WITHOUT a quantifier?
 
+    Equivalence is combining all elements in the set with OR statements
+    So long as one element evaluates true, the whole set evaluates true.
+    ( Mammal(bat) ⋀ Carnivore(bat) ) | ( Mammal(lion) ⋀ Carnivore(lion) ) ...
+    | ( Mammal(salmon) ⋀ Carnivore(salmon) )
+
+    There is an animal in our domain that is both a mammal and a carnivore.
+        TRUE: Lion meets both conditions
 
 
 ///
 
 ∀ x (Bird(x) ⋀ Wings(x))
 
-
+all animals in my domain are birds AND have wings
+false - a bat is not a bird
 
 
 ///
 
 ∀ x (Bird(x) → Wings(x))
 
+all animals that are birds, have wings
+conciseness: all birds have wings
 
+true!
+(every animal isn't a bird, or the bird does have wings!)
 
 ///
 
 ¬(∀ x Mammal(x))
 
-
+All animals are mammals (NOT!)
+OR: at least one animal is not a mammal
 
 ////
 

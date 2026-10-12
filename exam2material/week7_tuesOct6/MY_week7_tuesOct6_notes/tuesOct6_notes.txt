@@ -44,47 +44,63 @@ Write each statement in English. Is each one true or false?
 
 ¬(∀ x (Carnivore(x) → Mammal(x)))
 
-
+                       ***
+    Not all carnivores are mammals.
+    TRUE: Falcons are carnivores, but are not mammals (bird).
 
 
 ///
 
 ∀ x ¬Wings(x)
 
-
+    All animals do not have wings.
+    FALSE: bats and falcons have wings.
 
 
 ///
 
 ¬(∃ x Fish(x))
 
-
+    There is NOT at least one animal that is a fish.
+    FALSE: Salmon is a fish.
 
 ///
 
 ∃ x ¬(Fish(x))
 
-
+    There is some animal that is NOT a fish.
+    TRUE: A bat is not a fish.
 
 ///
 
 ¬(∃ x (Mammal(x) ⋀ Wings(x)))
 
-
+    There is NOT an animal that is a mammal with wings.
+    FALSE: A bat is a mammal with wings.
 
 
 ///
 
 ∃ x (Fish(x) → Bird(x))
 
+    There exists some animal, such that: If the animal is a fish, then it is a bird
 
+    Think without the quantifier: 
+    (Fish(bat) → Bird(bat)) |  (Fish(lion) → Bird(lion)) | ...
+
+    TRUE: if the left side of the implies is false, the quantifier evaluates true.
+    If it is NOT a type of fish, the whole statement is true...
 
 
 /////////////////
 
 For all: usually connect with...
 
+    an IMPLIES statement
+
 There exists: usually connect with...
+
+    an AND statement.
 
 ////////////////////////////////////////////
 
@@ -106,37 +122,48 @@ Translate to predicate logic and evaluate:
 
 CIS200 is a CS course with a lab
 
+    IsCS(CIS200) && HasLab(CIS200)
+    TRUE
 
+    NOTE: CIS200 is a SPECIFIC course in the set, not the actual set variable.
 
 //
 
 Not all CS courses have a lab
 
-
+    ∀ x ¬(IsCS(x) → HasLab(CIS200))
+    TRUE: CIS301 does not have a lab
 
 //
 
 There is a non-CS course with a lab
 
-
+    ∃ x (¬IsCS(x) && HasLab(CIS200))
+    TRUE: PHYS213 has a lab
 
 //
 
 No math course has a lab
 
+    ∀ x ¬( IsMath(x) → HasLab(x) ) OR 
+    ∀ x ( IsMath(x) → ¬HasLab(x) )
 
+    OR using THERE EXISTS QUANTIFIER
+    ¬(∃ x ( IsMath(x) → HasLab(x) ))
 
 //
 
 There is a CS course with more hours than a math course
 
-
+    You need two quantifiers -- one for the CS course, one for the math course 
+    
+    ∃ x ∃ y (IsCS(x) && IsMath(y) && MoreHours(x, y))
 
 //
 
 There is a CS course with more hours than any math course
 
-
+    ∃ x ∀ y (IsCS(x) && IsMath(y) -> MoreHours(x, y))
 
 --> Where to put the quantifiers?
 
@@ -152,21 +179,30 @@ What do these mean in English? Are they true?
 
 ∀ n ∃ m (n^2 < m)
 
+    For all numbers, its square is less than some other number.
+    TRANSLATION: The square of every integer is less than some other integer.
 
+    TRUE: The set of integers is infinite (you can just add 1)
 
 
 ∀ x ∃ y (x == y^2)
 
+    For all integers, it is some perfect square.
+    FALSE: 5 is not a perfect square
 
 
 ∀ n ∃ m (n^2 == m)
 
+    For all squared integers, they are some resulting integer.
+    TRUE: When you square an integer, it will always result an integer.
 
+    (integers are closed under multiplication)
 
 
 ∃ m ∀ n (n^2 == m)
 
-
+    Translation: There is one number that is the square of all other numbers
+    FALSE: That doesn't work! 
 
 
 /////////////////////////
@@ -180,13 +216,13 @@ Write the following in predicate logic (Domain: ℤ):
 
 The sum of two negative integers is negative
 
-
-
+    ∀ x ∀ y (x < 0 && y < 0 -> x + y < 0 )  
+    TRUE: You keep moving left along the number line.
 
 The difference of two positive integers is
 not necessarily positive
 
-
+    ∃ x ∃ y ( x > 0 && y > 0 && x - y <= 0 )
 
 
 /////////////////////////
@@ -208,7 +244,7 @@ Equivalence: DeMorgan's law (part 1).
 suppose our domain is k1 through kn
 
 
-¬(∃ x P(x)) is  equivalent to...
+¬(∃ x P(x)) is  equivalent to... ¬(P(k1) || P(k2) || ... || P(kn))
     by DeMorgan's: 
 
 which is? 
@@ -266,10 +302,12 @@ Domain: students
 
 All prize-winners were 5th graders
 
-Translation: 
-Negation: 
+Translation: ∀ x (wonPrize(x) -> in5th(x))
+Negation: ∃ x 
 
-Translation of negation: 
+ ¬( ∀ x (wonPrize(x) -> in5th(x)) )
+ = 
+Translation of negation: There's a student who won a prize and is not in 5th grade.
 
 ///
 
