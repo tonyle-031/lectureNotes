@@ -20,7 +20,9 @@ import org.sireum.justification.natded.prop._
     Proof(
       1 ( ∀((x: T) => (Human(x) __>: Mortal(x))) ) by Premise,
       2 ( ∃((x: T) => Human(x)) ) by Premise,
-      
+      3 Let ((a: T) => SubProof(
+
+      )),
     )
   )
 }

@@ -8,20 +8,32 @@ HW 7 due tonight
 
 --> what would inductive hypothesis be?
 
+Inductive step. We assume the inductive hypothesis as:
+    1*1! + 2*2! + ... + k*k! = (k+1)! - 1
 
+    such that k is a fixed natural number.
 
 --> what would we be trying to prove?
+    We want to show that the next number works as well!
+
+    1*1! + 2*2! + ... + k*k! + (k+1)*(k+1)! = ((k+1)+1)! - 1
+
+    We have: 1*1! + 2*2! + ... + k*k! = (k+1)! - 1 (inductive hypothesis)
+    ...
+    Want to get to ((k+1) + 1)! - 1
 
 
 
---> how can we express (n+1)!  ?
-    (n+2)!  ?
+--> how can we express (n+1)!  ? == (n+1)(n!)
+    (n+2)!  ? == (n+2) (n+1)!
 
 
 
 --> how can we rewrite  k*(k+1)! + (k+2)!   ?
 
-
+k*(k+1)! + (k+2)(k+1)! 
+    Factor out (k+1)! == (k+1)! (k + k + 2)
+    ...
 
 
 HW 8 will be posted after class
@@ -41,9 +53,18 @@ The induction domino effect:
 
     ( P(1) ∧ ∀ k (P(k) → P(k+1)) ) → ∀ n P(n) 
 
+P(n) is a claim over natural numbers.
+
 
 Steps for an induction proof?
+    If we can prove ( P(1) ∧ ∀ k (P(k) → P(k+1) ) )
+    ...
+    we are promised: ∀ n P(n) 
 
+P(1): Base case - prove our claim for the smallest value in our domain.
+∀ k (P(k) → P(k+1)): inductive step
+    Assume it's true for P(k) for some fixed k in our domain
+    Prove that it's true for the next element (P(k+1))
 
 //////////////////////////////////
 
@@ -51,25 +72,82 @@ Example: Prove that the sum of the first n odd numbers is n^2.
 
     (what is our domain?)
 
+    Base case: Sum of the first '1' odd number.
+        Sum of the first '1' odd -------- does 1 = 1^2?
+        Sum of the first '2' odds ------- does 1+3 = 2^2?
+        Sum of the first '3' odds ------- does 1+3+5 = 3^2?
+
+Domain is natural numbers!
+
+
 
 How can we express the sum of the first n odd numbers more formally?
 
-
+In general: 
+    1 + 3 + 5 + ... + (nth odd) = n^2
+    We can express nth odd as (2n-1).
 
 So, what is our claim?
 
+    For all natural numbers 'n', we want to prove: 
+    1 + 3 + 5 + ... + (2n-1) = n^2
 
 
 Proof by induction.
 
+    Base case: We want to prove for our smallest natural number (n == 1)
+    We have that 1 = 1^2, so the base case holds.
+
+    Inductive step: We assume the inductive hypothesis, that: --- think about this like a 
+    specific case we can use for a "for all" introduction
+        1 + 3 + 5 + ... + (2k-1) = k^2
+    for some fixed natural number k. We must show that: 
+        1 + 3 + 5 + ... + (2(k+1)-1) = (k+1)^2
+
+    We have that:
+        1 + 3 + 5 + ... + (2(k+1)-1) = k^2 + (2(k+1)-1) (by inductive step)
+                                     = k^2 + 2k + 2 - 1 -- distribute and simplify
+                                     = k^2 + 2k + 1
+                                     = (k+1)^2 -- perfect square
+
+    The inductive stpe holds.
+    Thus, we have shown with induction that for all natural numbers 'n', 
+        1 + 3 + 5 + ... + (2n-1) = n^2.
+
+
+NOTE: Induction domains do NOT have to be just natural numbers!
+
+For all integers n >= 4, .... 
+    Our base case wouldn't be 1, but 4 in this case.
+
+    In this case, having the set of integers as our base case is problematic, since there's no smallest value 
+    (neg infinity)
 
 /////////////////////////////////
 
 Bad induction, example 1.
 
 Use induction to prove that in any nonempty set of n horses, 
-all horses are the same color.
+all horses in that set are the same color.
 
+Domain? Natural numbers
+    Base case: We must prove that our claim holds for the smallest natural number, n = 1. 
+    We have that for a set of 1 horse, all horses would have the same color (because there is only one)
+
+    Inductive step. We assume the inductive hypothesis, that in any set of k horses, 
+    where k is some fixed natural number, that all k horses have the same horses.
+
+    We must show that: if we have a set of k+1 horses in that set, all of those horses still have the same color.
+
+    There is the first set of 'k' horses, and a second set of 'k' horses..
+    
+    This works for all natural numbers EXCEPT for our BASE CASE of k = 1
+        There is NO overlap (one horse is unique, the other one could be unique as well).
+
+
+What if we adjusted our domain to be natural numbers >= 2?
+    Our base case wouldn't work of 2 horses, we cannot say it works.
+    
 
 //////////////////////////////////
 
@@ -80,6 +158,7 @@ Use induction to prove that 8n+3 is even for all positive integers n.
 
 (What happens when we skip the base case?)
 
+    [fill in notes later]
 
 ////////////////////////////////////
 
@@ -88,6 +167,8 @@ Recursively defined functions.
 
 To define a function whose domain is the set of natural numbers
 (or some other set of integers with a lowest value)
+
+    For natural numbers: n = 1
 
 Base case: Specify the value of the function at 1 (or some other
     lowest value). (There may be more than one base case.)
@@ -109,7 +190,15 @@ f(n) = 2f(n-1) + 3, for n > 1
 
 What is f(3)?
 
-
+    We would use our recursive function and substitute 3 for n.
+    f(3) = 2f(3-1) + 3
+        = 2f(2) + 3
+    f(2) = 2f(2-1) + 3
+        = 2f(1) + 3
+    f(1) = 3
+        now we can substitute f(1) back into the above method!
+        f(2) = 2(3) + 3 = 9
+        f(3) = 2(9) + 3 = 21
 
 
 
@@ -123,14 +212,15 @@ g(n) = n * g(n-1), for n > 1
 
 n  | g(n)
 ---------
-1  | 
-2  | 
-3  | 
-4  | 
+1  |  1
+2  |  2
+3  |  6
+4  |  24
 
+Wait this is the factorial function! Could have written:
+    g(n) = n! -- non-recursive definition
 
-
-
+    *NOTE: she might ask a question about writing the function in terms of recursion
 
 //////////////////////////////////
 
@@ -141,21 +231,27 @@ Write a recursive definition.
 Over natural numbers.
 
 Base case?
-Recursive case?
+    f(1) = 1
 
+Recursive case?
+    f(n) = f(n-1) + (n-1) , where n > 1
 
 
 n | f(n)
 -----------------
-1 | 
-2 | 
-3 | 
-4 | 
+1 |  1
+2 |  2
+3 |  4
+4 |  7
+5 |  11
 
+n | f(n-1) + (n-1)
 
 ////////////////////////////////
 
 Recursively defined sets:
+
+
 
 
 Consider the subset S of the set of integers, defined as:
@@ -164,8 +260,16 @@ Base case: 1, 2 ∈ S
 
 Recursive case: x ∈ S ⋀ y ∈ S → xy ∈ S
 
+    English translation: If two numbers exist in the set, their product must exist in the set.
+    NOTE: Does not have to be unique (like 2 * 2).
+
 --> what are the elements in S?
 
+    {1, 2} 
+    This creates the powers of 2: {1, 2, 4, 8, 16, ...}
+
+    Set Builder Notation:
+        {x : x = 2^n, n ∈ Z, n >= 0}
 
 
 
@@ -174,7 +278,10 @@ Recursive case: x ∈ S ⋀ y ∈ S → xy ∈ S
 
 Write a recursive definition for the set S = {1, 3, 5, 7, ...}
 
+    Base case: 1 ∈ S
+    Recursive case: x ∈ S → (x+2) ∈ S
 
+    {1, 3, 5, ... }
 
 ////////////////////////////////
 
