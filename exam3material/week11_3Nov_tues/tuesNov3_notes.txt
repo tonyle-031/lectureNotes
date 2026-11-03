@@ -121,7 +121,7 @@ study:
 --> more info: https://slang.sireum.org/about/
 
 
---> gives you semantic verfication, unlike test cases (verification)
+--> gives you semantic verification, unlike test cases (verification)
 --> lets you learn programming project by applying manually, then 
     switch to automatic verification based on specifications
 
@@ -320,72 +320,49 @@ Another justification: Subst
 
 /////////////////////////////
 
-Subst_<(m, n)
+Subst_<(m, n) and Subst_>(m, n)
 
 
 
 Deduce(
     ...
-    m ( LHS_M == RHS_M ),      //must be an equivalence
+    m ( LHS == RHS ),      //must be an equivalence
     ...
-    n ( claim1 ),
+    n ( claim ),
     ...
-    j ( claim2 )              by Subst_<(m, n)
+    j ( result )              by Subst_?(m, n)
 )
 
-claim2 rewrites claim1 by substituting all occurrences of
-    LHS_M with RHS_M
+result rewrites claim by doing a find/replace between LHS and RHS
 
 
-    (the < points at the value we are REPLACING)
+**The < points at the value we are REPLACING
+    Subst_<(m, n) rewrites claim by replacing all LHS with RHS
+
+    Subst_>(m, n) rewrites claim by replacing all RHS with LHS
 
 
 
-Example:
+
+Examples:
 
 Deduce(
     ...
-    m ( x + 1 == y - 4 ),
+    m ( x + 1 == y - 4 )                        by Justification,
     ...
-    n ( x*(x + 1) == (x + 1) + y ),
+    n ( x*(x + 1) == (x + 1) + y )              by Justification,
     ...
-    j ( x*(y-4) == (y-4) + y )     by Subst_<(m, n)
+    j ( x*(y-4) == (y-4) + y )                  by ???
 )
-
-
-
-
-
-/////////////////////////////
-
-Subst_>(,m n)
 
 Deduce(
     ...
-    m ( LHS_M == RHS_M ),      //must be an equivalence
+    m ( x + 1 == y )                            by Justification,
     ...
-    n ( claim1 ),
+    n ( y*(x + 1) == (x + 1) + y )              by Justification,
     ...
-    j ( claim2 )             by Subst_>(m, n)
+    j ( (x+1)*(x + 1) == (x + 1) + x + 1 )      by ???
 )
-
-claim2 rewrites claim1 by substituting all occurrences of
-    RHS_M with LHS_M
-
-
-
-Example:
-
-Deduce(
-    ...
-    m ( x + 1 == y )
-    ...
-    n ( y*(x + 1) == (x + 1) + y )
-    ...
-    j ( (x+1)*(x + 1) == (x + 1) + x + 1 ) by Subst_>(m, n)
-)
-
-
 
 
 
