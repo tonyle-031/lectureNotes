@@ -20,16 +20,8 @@ val y: Z = x + 2
 Deduce (
     1 ( y == x + 2 ) by Premise,
     2 ( x == 2 ) by Premise,
-<<<<<<< HEAD
     3 ( y == 4 ) by Algebra*(1, 2)
 )
-=======
-    3 ( y == 4 ) by Algebra*(1,2)
-    //need: y == 4
-)
-
-
->>>>>>> 97789fcb3583002c0c28ec6774c2a7a8cf44d8e3
 
 //what can we put in a proof block here?
 

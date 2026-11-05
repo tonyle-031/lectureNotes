@@ -14,22 +14,38 @@ assume(x > 0)
 val orig: Z = x
 
 //do we need a proof block here? 
-
+    // it's not necessary, since we don't change the value of x.
 
 x = x + 1
 
+Deduce (
+    1 (Old(x) > 0) by Premise, // from assume line
+    2 ( x == Old(x) + 1 ) by Premise, // from recent assignment operation
+    3 ( orig == Old(x) ) by Premise, // from orig initialization
+    4 ( x == orig + 1 ) by Algebra*(2, 3),
+    5 ( x > 1 ) by Algebra*(1, 2)
+)
 
 //what can we put in a proof block here?
 //what should we be able to assert about x and orig?
 
 x = x + 2
 
+Deduce (
+    1 ( x == Old(x) + 2 ) by Premise,
+    2 ( Old(x) == orig + 1 ) by Premise, 
+    3 ( x == orig + 3 ) by Algebra*(1, 2) ,
+    4 ( Old(x) > 1 ) by Premise,
+    5 ( x > 3 ) by Algebra*(1, 4)
+)
 
 //what can we put in a proof block here?
 
 
 
 //what do we want to assert? How has x changed?
+assert(x == orig + 3)
+assert(x > 3)
 
 
 
